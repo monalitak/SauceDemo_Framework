@@ -17,15 +17,16 @@ class AddtoCart:
         for items in list_item:
             name_item = items.find_element(By.XPATH,".//div[@class='inventory_item_description']/div[@class='inventory_item_label']/a/div[@class='inventory_item_name ']")
             final_item = name_item.text
-            print(final_item)
-            if final_item == product_name:
+            print("Product list-:", final_item)
+            if final_item in product_name:
                 price_elem = items.find_element(By.CLASS_NAME, "inventory_item_price")
                 price_text = price_elem.text.replace("$", "")
                 price_value = float(price_text)
                 collected_prices.append(price_value)
                 product = items.find_element(By.CSS_SELECTOR, ".btn_inventory")
                 product.click()
-                print(f"Added {final_item} @ {price_value}")
+                #print(f"Added {final_item} @ {price_value}")
+                print("Added product-:", product_name)
         final_amount = sum(collected_prices)
         print("Final price:", final_amount)
 
