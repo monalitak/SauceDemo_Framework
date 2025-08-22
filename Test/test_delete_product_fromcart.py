@@ -16,18 +16,14 @@ with open(test_data_path) as f:
     test_list = test_data["data"]
 
 @pytest.mark.parametrize("test_list_item", test_list)
-def test_e2e_shopping (browserInstance, base_url, test_list_item):
+def test_delete_product (browserInstance, base_url, test_list_item):
     driver = browserInstance
-#    driver.get("https://www.saucedemo.com/")
+    driver.implicitly_wait(4)
     loginPage = LoginPage(driver, base_url)
     loginPage.login(test_list_item["userid"], test_list_item["password"])
     shop_page =  AddtoCart(driver)
     shop_page.add_item(test_list_item["product_name"])
     shop_page.goToCart()
-    shop_page.checkout()
-    final_confirmation = purchase(driver)
-    final_confirmation.personal_details()
-    final_confirmation.finish()
+    shop_page.delete_product_from_cart(test_list_item["delete_product"])
     logout = Logout(driver)
     logout.logout()
-    time.sleep(4)

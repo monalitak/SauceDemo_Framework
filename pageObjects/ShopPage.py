@@ -8,6 +8,7 @@ class AddtoCart:
         self.go_to_cart = (By.CSS_SELECTOR, ".shopping_cart_link")
         self.checkout_button = (By.ID, "checkout")
         self.select_product = (By.XPATH, "//div[@class='inventory_item']")
+        #self.delete_from_cart = ()
 
     def add_item(self, product_name):
         collected_prices = []
@@ -33,3 +34,13 @@ class AddtoCart:
 
     def checkout(self):
         self.driver.find_element(*self.checkout_button).click()
+
+    def delete_product_from_cart(self, delete_product):
+        product_list = self.driver.find_elements(By.XPATH, "//div[@class='cart_item']")
+        for del_product in product_list:
+            name = del_product.find_element(By.XPATH,".//div[@class='cart_item_label']/a/div[@class='inventory_item_name']").text
+            if name == delete_product:
+                remove_id = "remove-" + delete_product.lower().replace(" ", "-")
+                del_product.find_element(By.ID, remove_id).click()
+                print(f"Removed product -: {delete_product}")
+                break

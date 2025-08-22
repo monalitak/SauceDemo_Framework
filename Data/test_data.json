@@ -3,7 +3,8 @@
     {
       "userid" : "standard_user",
       "password" : "secret_sauce",
-      "product_name" : "Sauce Labs Onesie"
+      "product_name" : "Sauce Labs Onesie",
+      "delete_product" : "Sauce Labs Bike Light"
 
     }
 

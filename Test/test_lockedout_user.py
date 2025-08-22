@@ -10,24 +10,13 @@ from SauceDemo_Shopping_Framework.pageObjects.personaldetails_confirmation impor
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 from SauceDemo_Shopping_Framework.pageObjects.login import LoginPage
-test_data_path = '../Data/test_data.json'
+test_data_path = '../Data/test_locked_user.json'
 with open(test_data_path) as f:
     test_data = json.load(f)
     test_list = test_data["data"]
 
 @pytest.mark.parametrize("test_list_item", test_list)
-def test_e2e_shopping (browserInstance, base_url, test_list_item):
+def test_locked_user (browserInstance, base_url, test_list_item):
     driver = browserInstance
-#    driver.get("https://www.saucedemo.com/")
     loginPage = LoginPage(driver, base_url)
-    loginPage.login(test_list_item["userid"], test_list_item["password"])
-    shop_page =  AddtoCart(driver)
-    shop_page.add_item(test_list_item["product_name"])
-    shop_page.goToCart()
-    shop_page.checkout()
-    final_confirmation = purchase(driver)
-    final_confirmation.personal_details()
-    final_confirmation.finish()
-    logout = Logout(driver)
-    logout.logout()
-    time.sleep(4)
+    loginPage.locked_user(test_list_item["userid"], test_list_item["password"])
